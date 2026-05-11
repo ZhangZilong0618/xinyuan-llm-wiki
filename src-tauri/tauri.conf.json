@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "LLM Wiki",
+  "productName": "xinyuan LLM Wiki",
   "version": "0.4.8",
   "identifier": "com.llmwiki.app",
   "build": {
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "LLM Wiki",
+        "title": "xinyuan LLM Wiki",
         "width": 1200,
         "height": 800,
         "resizable": true,

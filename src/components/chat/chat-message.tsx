@@ -9,6 +9,7 @@ import {
   Users, Lightbulb, BookOpen, HelpCircle, GitMerge, BarChart3, Layout, Globe,
   Image as ImageIcon,
 } from "lucide-react"
+import assistantAvatar from "@/assets/logo.png"
 import { useWikiStore } from "@/stores/wiki-store"
 import { readFile, writeFile, listDirectory } from "@/commands/fs"
 import { lastQueryPages } from "@/components/chat/chat-panel"
@@ -85,7 +86,15 @@ export function ChatMessage({ message, isLastAssistant, onRegenerate }: ChatMess
               : "bg-muted text-muted-foreground"
         }`}
       >
-        {isUser ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
+        {isUser ? (
+          <User className="h-4 w-4" />
+        ) : (
+          <img
+            src={assistantAvatar}
+            alt="Assistant Avatar"
+            className="h-7 w-7 rounded-full object-cover"
+          />
+        )}
       </div>
       <div className="max-w-[80%] flex flex-col gap-1.5">
         <div
@@ -771,13 +780,12 @@ function StreamingThinkingBlock({ content }: { content: string }) {
   const visibleLines = lines.slice(-5)
 
   return (
-    <div className="rounded-md border border-dashed border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20 px-2.5 py-2">
+    <div className="rounded-md border border-dashed border-muted-foreground/30 bg-muted/40 dark:bg-muted/20 px-2.5 py-2">
       <div className="flex items-center gap-1.5 mb-1.5">
-        <span className="text-sm animate-pulse">💭</span>
-        <span className="text-xs font-medium text-amber-700 dark:text-amber-400">Thinking...</span>
-        <span className="text-[10px] text-amber-600/50 dark:text-amber-500/40">{lines.length} lines</span>
+        <span className="text-xs font-medium text-muted-foreground">Thinking...</span>
+        <span className="text-[10px] text-muted-foreground/70">{lines.length} lines</span>
       </div>
-      <div className="h-[5lh] overflow-hidden text-xs text-amber-800/70 dark:text-amber-300/60 font-mono leading-relaxed">
+      <div className="h-[5lh] overflow-hidden text-xs text-muted-foreground/90 dark:text-muted-foreground/80 font-mono leading-relaxed">
         {visibleLines.map((line, i) => (
           <div
             key={lines.length - 5 + i}
@@ -787,7 +795,7 @@ function StreamingThinkingBlock({ content }: { content: string }) {
             {line}
           </div>
         ))}
-        <span className="animate-pulse text-amber-500">▊</span>
+        <span className="animate-pulse text-muted-foreground">▊</span>
       </div>
     </div>
   )
@@ -799,20 +807,19 @@ function ThinkingBlock({ content }: { content: string }) {
   const lines = content.split("\n").filter((l) => l.trim())
 
   return (
-    <div className="mb-2 rounded-md border border-dashed border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20">
+    <div className="mb-2 rounded-md border border-dashed border-muted-foreground/30 bg-muted/40 dark:bg-muted/20">
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="flex w-full items-center gap-1.5 px-2.5 py-1.5 text-xs text-amber-700 dark:text-amber-400 hover:bg-amber-100/50 dark:hover:bg-amber-900/20 transition-colors"
+        className="flex w-full items-center gap-1.5 px-2.5 py-1.5 text-xs text-muted-foreground hover:bg-muted/70 transition-colors"
       >
-        <span className="text-sm">💭</span>
         <span className="font-medium">Thought for {lines.length} lines</span>
-        <span className="text-amber-600/60 dark:text-amber-500/60">
+        <span className="text-muted-foreground/80">
           {expanded ? "▼" : "▶"}
         </span>
       </button>
       {expanded && (
-        <div className="border-t border-amber-500/20 px-2.5 py-2 text-xs text-amber-800/80 dark:text-amber-300/70 whitespace-pre-wrap max-h-64 overflow-y-auto font-mono leading-relaxed">
+        <div className="border-t border-muted-foreground/20 px-2.5 py-2 text-xs text-muted-foreground whitespace-pre-wrap max-h-64 overflow-y-auto font-mono leading-relaxed">
           {content}
         </div>
       )}

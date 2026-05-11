@@ -31,7 +31,7 @@ export function AboutSection() {
     useUpdateStore.getState().setChecking(true)
     const result = await checkForUpdates({
       currentVersion: __APP_VERSION__,
-      repo: "nashsu/llm_wiki",
+      repo: "ZhangZilong0618/xinyuan-llm-wiki",
     })
     const now = Date.now()
     useUpdateStore.getState().setResult(result, now)
