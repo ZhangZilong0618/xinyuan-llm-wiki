@@ -26,12 +26,9 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
   const [name, setName] = useState("")
   const [path, setPath] = useState("")
   const [selectedTemplate, setSelectedTemplate] = useState("general")
-  // Empty string = "user hasn't picked yet"; we validate this on
-  // submit so a fresh project never starts in implicit auto-detect
-  // mode. Once chosen, the value is one of OUTPUT_LANGUAGE_OPTIONS
-  // (`auto` is a valid explicit choice — the user is then opting
-  // INTO auto-detect rather than getting it by accident).
-  const [language, setLanguage] = useState<string>("")
+  // Default to Chinese for new projects; user can still switch in
+  // the dropdown before creation.
+  const [language, setLanguage] = useState<string>("Chinese")
   const [error, setError] = useState("")
   const [creating, setCreating] = useState(false)
   const setOutputLanguage = useWikiStore((s) => s.setOutputLanguage)
@@ -50,10 +47,6 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
   async function handleCreate() {
     if (!name.trim() || !path.trim()) {
       setError("Name and path are required")
-      return
-    }
-    if (!language) {
-      setError("Please pick an AI output language")
       return
     }
     setCreating(true)
@@ -82,7 +75,7 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
       setName("")
       setPath("")
       setSelectedTemplate("general")
-      setLanguage("")
+      setLanguage("Chinese")
     } catch (err) {
       setError(String(err))
     } finally {
